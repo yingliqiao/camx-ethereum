@@ -17,6 +17,10 @@ contract("AlarmStorage", function(accounts) {
     const udid = "7A6C22A6-6247-452F-9865-3F276B526485";
     const ipfsHash = "QmSehVuH9vqgumD18v2XaN7FtRmW6RS15HrfsxkDQT6T4X";
 
+    /*
+        Test IPFS hash correctly saves providing valid iOS device udid and paid enough service fee.
+        This test case ensures the core feature works in normal conditions.
+    */
     it("should save correct IPFS hash", async () => {
         const alarmStorage = await AlarmStorage.deployed();
 
@@ -32,6 +36,10 @@ contract("AlarmStorage", function(accounts) {
         assert.equal(expectedEvent._value, logValue, "LogsaveHash event _value property not emitted, chec, saveHash method");  
     });
 
+    /*
+        Test IPFS hash fails to save if sender hasn't paid sufficient service fee.
+        This test case ensures no free lunch provided.
+    */
     it("should fail to save IPFS hash if sufficient service fee isn't paid", async () => {
         const alarmStorage = await AlarmStorage.deployed();
 
@@ -41,6 +49,10 @@ contract("AlarmStorage", function(accounts) {
         );  
     });
 
+    /*
+        Test contract ownership is able to be transfered.
+        This test case ensures administrator responsibility can be tranferred.
+    */
     it("should transfer owner successfully", async () => {
         const alarmStorage = await AlarmStorage.deployed();
 
@@ -55,6 +67,10 @@ contract("AlarmStorage", function(accounts) {
         assert.equal(expectedEvent._newOwner, logNewOwner, "LogTransferOwner event _newOwner property not emitted, check transferOwner method");
     });
 
+    /*
+        Test contract owner is able to withdraw service fees.
+        This test cases ensures collected service fees can be transferred out.
+    */
     it("should withdraw amount successfully", async () => {
         const alarmStorage = await AlarmStorage.deployed();
 
@@ -80,6 +96,10 @@ contract("AlarmStorage", function(accounts) {
         assert.equal(expectedEvent._amount, logAmount, "LogWithdraw event _amount property not emitted, check transferOwner method");
     });
 
+    /*
+        Test no unautherized user can withdraw service fee from contract.
+        This test cases ensures no loss caused by unautherized withdraw.
+    */
     it("should fail to withdraw amount if it's not owner", async() => {
         const alarmStorage = await AlarmStorage.deployed();
 

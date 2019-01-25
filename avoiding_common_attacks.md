@@ -1,0 +1,5 @@
+- Implemented Circuit Breaker to suspend and restore the contract core functions.
+- Used modifiers to ensure conditions are met before calling functions.
+- Avoided using block timestamp to prevent Timestamp Dependence attacks.
+- Avoided using contract balance dependencies.
+- Implemented balance withdrawal design pattern to avoid Denial of Service attacks.

@@ -1,0 +1,3 @@
+- Implemented Circuit Breaker to suspend and restore the contract core functions.
+- Used modifiers to ensure conditions are met before/after calling functions.
+- Implemented balance withdrawal design pattern so transfer is independent from other logic.
